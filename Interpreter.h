@@ -24,9 +24,17 @@ class Interpreter
 	void inc();
 	void pop();
 	void push();
+	void mov();
+	void mul();
+	void add();
+	void sub();
+	void neg();
+	void clear();
 	void ipush(uint8_t value);
 	uint8_t ipop();
-	void clear();
+	void ipush16(uint16_t value);
+	uint16_t ipop16();
+	uint8_t getArg();
 	uint32_t getVbuffer();
 	uint16_t makeUint16(uint8_t x, uint8_t y);
 	void reset();

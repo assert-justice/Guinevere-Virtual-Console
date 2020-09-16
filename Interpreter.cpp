@@ -54,7 +54,7 @@ void Interpreter::cycle()
 	case Opcodes::LIT:
 		lit();
 		break;
-	case Opcodes::CLEAR:
+	case Opcodes::CLR:
 		clear();
 		break;
 	case Opcodes::JMP:
@@ -109,10 +109,57 @@ uint8_t Interpreter::ipop()
 	return ram[registers[SP]];
 }
 
+void Interpreter::ipush16(uint16_t value)
+{
+	uint8_t low = (uint8_t)value;
+	uint8_t high = (uint8_t)(value >> 8);
+	ipush(high);
+	ipush(low);
+}
+
+uint16_t Interpreter::ipop16()
+{
+	uint8_t low = ipop();
+	return makeUint16(ipop(), low);
+}
+
 uint16_t Interpreter::makeUint16(uint8_t x, uint8_t y)
 {
 	uint16_t val = x;
 	return (val << 8) + (uint16_t)y;
+}
+
+uint8_t Interpreter::getArg()
+{
+	registers[IP]++;
+	return rom[registers[IP]];
+}
+
+void Interpreter::mov()
+{
+	uint8_t source = getArg();
+	uint8_t dest = getArg();
+	registers[dest] = registers[source];
+}
+
+void Interpreter::mul()
+{
+	registers[ACC] *= ipop16();
+}
+
+void Interpreter::add()
+{
+	registers[ACC] += ipop16();
+}
+
+void Interpreter::sub()
+{
+	registers[ACC] -= ipop16();
+}
+
+void Interpreter::neg()
+{
+	registers[ACC] = -(int16_t)registers[ACC];
 }
 
 void Interpreter::pop()

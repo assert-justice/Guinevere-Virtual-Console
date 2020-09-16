@@ -34,6 +34,7 @@ Assembler::Assembler()
 	opcodes["LIT"] = Opcodes::LIT;
 	opcodes["JSR"] = Opcodes::JSR;
 	opcodes["RTS"] = Opcodes::RTS;
+	opcodes["MOV"] = Opcodes::MOV;
 	opcodes["LOAD"] = Opcodes::LOAD;
 	opcodes["SAVE"] = Opcodes::SAVE;
 	opcodes["MCPY"] = Opcodes::MCPY;
@@ -49,7 +50,7 @@ Assembler::Assembler()
 	opcodes["SAVES"] = Opcodes::SAVES;
 	opcodes["LOADS"] = Opcodes::LOADS;
 	opcodes["RESET"] = Opcodes::RESET;
-	opcodes["CLEAR"] = Opcodes::CLEAR;
+	opcodes["CLR"] = Opcodes::CLR;
 	opcodes["SPR"] = Opcodes::SPR;
 	opcodes["LOADV"] = Opcodes::LOADV;
 	opcodes["SAVEV"] = Opcodes::SAVEV;

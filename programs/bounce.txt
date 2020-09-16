@@ -1,0 +1,25 @@
+; Creates a bouncing box animation
+LIT 0
+PUSH $0 ; x value
+LIT 0
+PUSH $1 ; y value
+LIT 8
+PUSH $2 ; width
+LIT 8
+PUSH $3 ; height
+LIT 1
+PUSH $4 ; x velocity
+LIT 1
+PUSH $5 ; y velocity
+LIT 15
+PUSH $6 ; color
+MARK #UPDATE
+
+MARK #DRAW
+LIT 0
+CLR ; clear the screen to black
+MOV $1 $ACC
+LIT 320 ; screen width
+MUL
+PUSH $0
+ADD

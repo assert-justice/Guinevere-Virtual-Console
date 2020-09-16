@@ -31,11 +31,13 @@ namespace Opcodes
 	constexpr uint8_t LIT  = 33; // Pushes a literal value to the stack.
 	constexpr uint8_t JSR  = 34; // Jump to subroutine. Pushes the current value of the ip to the stack and sets it to a given value.
 	constexpr uint8_t RTS  = 35; // Return from subroutine. Pops a value from the stack and sets the ip to that value.
+	constexpr uint8_t MOV  = 36; // Move 
 
 	// Memory
-	constexpr uint8_t LOAD  = 40; // Pops a short pointer from the stack and pushes the value at that location plus the offset in memory.
+	constexpr uint8_t LOAD  = 40; // Accepts a register and pops a value from the stack, then pushes the value to the location plus the offset in memory.
 	constexpr uint8_t SAVE  = 41; // Pops a short pointer and a value from the stack and copies the value to the location plus the offset in memory.
-	constexpr uint8_t MCPY  = 42; // Pops a length and two pointers from the stack and copies the values from one to the other. Takes the offset into account.
+	constexpr uint8_t MCPY  = 42; // Pops a length and two pointers from the stack and copies the values from one to the other. Takes the offset into account
+	constexpr uint8_t SET   = 43; // Pops a value and a length from the stack and a pointer from a register.
 
 	// Control flow
 	constexpr uint8_t JMP = 70; // Unconditonal jump, setting the ip register to a value.
@@ -54,7 +56,7 @@ namespace Opcodes
 	constexpr uint8_t RESET = 56; // Resets the console.
 
 	// Utility
-	constexpr uint8_t CLEAR = 60; // Pops a value and sets the entire vbuffer to that value.
+	constexpr uint8_t CLR   = 60; // Pops a value and sets the entire vbuffer to that value.
 	constexpr uint8_t SPR   = 61; // Helper method that draws a sprite. Pops x, y, width, and height values as well as a long pointer and copies it to the vbuffer.
 	constexpr uint8_t LOADV = 62; // Pops a length and pointer from the stack and pushes the given number of values from the vbuffer. Takes the offset into account.
 	constexpr uint8_t SAVEV = 63; // Pops a length and pointer from the stack and pops that many values, copying them to the vbuffer. Takes the offset into account.
