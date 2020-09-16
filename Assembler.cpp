@@ -44,12 +44,13 @@ Assembler::Assembler()
 	opcodes["JGZ"] = Opcodes::JGZ;
 	opcodes["JNZ"] = Opcodes::JNZ;
 	opcodes["VBL"] = Opcodes::VBL;
-	opcodes["DUMP "] = Opcodes::DUMP;
+	opcodes["DUMP"] = Opcodes::DUMP;
 	opcodes["SAVEG"] = Opcodes::SAVEG;
 	opcodes["LOADG"] = Opcodes::LOADG;
 	opcodes["SAVES"] = Opcodes::SAVES;
 	opcodes["LOADS"] = Opcodes::LOADS;
 	opcodes["RESET"] = Opcodes::RESET;
+	opcodes["HALT"] = Opcodes::HALT;
 	opcodes["CLR"] = Opcodes::CLR;
 	opcodes["SPR"] = Opcodes::SPR;
 	opcodes["LOADV"] = Opcodes::LOADV;
@@ -111,7 +112,7 @@ void Scanner::scanToken()
 
 std::string Scanner::getIdentifier()
 {
-	char c = source[current];
+	char c = advance();
 	while (!isAtEof() && !isReserved(c)) c = advance();
 	current--;
 	if (c == '$')
@@ -158,12 +159,13 @@ void Scanner::error(std::string message)
 }
 void Scanner::number()
 {
-	char c = source[current];
-	if (c == '0')
+	char c = advance();
+	/*if (c == '0')
 	{
 		if (current < source.length() - 1 && source[current + 1] == 'x') advance();
-	}
+	}*/
 	while (!isAtEof() && isNumeric(c)) c = advance();
+	current--;
 	Token t = {};
 	t.literal = source.substr(start, current - start);
 	t.line = line;
@@ -260,10 +262,10 @@ std::vector<Token>* Scanner::scan(std::string _source)
 	t.value = 0;
 	t.line = line;
 	tokens.push_back(t);
-	/*for (size_t i = 0; i < tokens.size(); i++)
+	for (size_t i = 0; i < tokens.size(); i++)
 	{
 		tokens[i].print();
-	}*/
+	}/**/
 	return &tokens;
 }
 
@@ -354,6 +356,13 @@ uint8_t* Parser::parse(std::vector<Token>* _tokens)
 				if (t.type != Token::TokenType::label) error("JSR command expects a label", t);
 				else writeNumber(t.value);
 				break;
+			case Opcodes::MOV:
+				t = advance();
+				if (t.type != Token::TokenType::reg) error("Move reqires a valid register name.", t);
+				else program.push_back(t.value);
+				t = advance();
+				if (t.type != Token::TokenType::reg) error("Move reqires a valid register name.", t);
+				else program.push_back(t.value);
 			default:
 				break;
 			}

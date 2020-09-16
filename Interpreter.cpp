@@ -28,6 +28,7 @@ void Interpreter::run()
 	{
 		cycle();
 		if (!running) return;
+		if (hasError) return;
 	}
 	error("Excessive lag detected. Are you in an infinite loop?");
 }
@@ -84,6 +85,18 @@ void Interpreter::cycle()
 	case Opcodes::DEC:
 		dec();
 		break;
+	case Opcodes::HALT:
+		halt();
+		break;
+	case Opcodes::MOV:
+		mov();
+		break;
+	case Opcodes::ADD:
+		add();
+		break;
+	case Opcodes::MUL:
+		mul();
+		break;
 	default:
 		std::cout << "Opcode not recognized: " << (int)op << " at instruction " << registers[IP] << std::endl;
 		error("Check your program");
@@ -133,6 +146,11 @@ uint8_t Interpreter::getArg()
 {
 	registers[IP]++;
 	return rom[registers[IP]];
+}
+
+void Interpreter::halt()
+{
+	hasError = true;
 }
 
 void Interpreter::mov()

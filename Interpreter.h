@@ -30,6 +30,7 @@ class Interpreter
 	void sub();
 	void neg();
 	void clear();
+	void halt();
 	void ipush(uint8_t value);
 	uint8_t ipop();
 	void ipush16(uint16_t value);

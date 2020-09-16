@@ -54,6 +54,7 @@ namespace Opcodes
 	constexpr uint8_t SAVES = 54; // Saves a snapshot of the console's state to the memory card.
 	constexpr uint8_t LOADS = 55; // Loads a snapshot of the console's state from the memory card.
 	constexpr uint8_t RESET = 56; // Resets the console.
+	constexpr uint8_t HALT  = 56; // Halts execution as if an error was reached.
 
 	// Utility
 	constexpr uint8_t CLR   = 60; // Pops a value and sets the entire vbuffer to that value.
