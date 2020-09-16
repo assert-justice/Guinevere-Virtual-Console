@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include "Opcodes.h"
+#include "Pallets.h"
 
 constexpr int BANK_SIZE = 65536;
 constexpr int NUM_BANKS = 1;
@@ -331,7 +332,11 @@ void Interpreter::reset()
 	stackBase = 256 * 3 + 64000;
 	registers[SP] = stackBase;
 	size_t palIndex = 0;
-	for (size_t i = 0; i < 6; i++)
+	for (size_t i = 0; i < 256*3; i++)
+	{
+		ram[palIndex + i] = Pallets::standard[i];
+	}
+	/*for (size_t i = 0; i < 6; i++)
 	{
 		for (size_t f = 0; f < 6; f++)
 		{
@@ -343,7 +348,7 @@ void Interpreter::reset()
 				palIndex += 3;
 			}
 		}
-	}
+	}*/
 }
 
 Interpreter::Interpreter()

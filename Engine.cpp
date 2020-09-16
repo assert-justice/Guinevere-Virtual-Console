@@ -44,7 +44,8 @@ void Engine::init()
 {
 	std::ifstream f;
 	//std::cout << std::filesystem::current_path() << std::endl;
-	f.open("programs/test.txt");
+	//f.open("programs/test.txt");
+	f.open("programs/screenClear.txt");
 	if (!f.is_open())
 	{
 		std::cout << "file failed to open\n";
